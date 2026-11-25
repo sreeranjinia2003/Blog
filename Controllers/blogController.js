@@ -71,3 +71,33 @@ exports.updateBlogController = async (req, res) => {
         })
     }
 }
+// DELETE BLOG
+exports.deleteBlogController = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const deletedBlog = await blogs.findOneAndDelete({
+            _id: id,
+            author: req.payload
+        })
+
+        if (!deletedBlog) {
+            return res.status(404).json({
+                success: false,
+                message: "Blog not found or you are not authorized to delete it"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Blog deleted successfully",
+            data: deletedBlog
+        })
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}

@@ -24,4 +24,5 @@ router.get('/protected', authMiddleware, (req, res) => {
 router.post('/blogs', authMiddleware, blogController.createBlogController)
 router.get('/blogs', blogController.getAllBlogsController)
 router.put('/blogs/:id', authMiddleware, blogController.updateBlogController)
+router.delete('/blogs/:id', authMiddleware, blogController.deleteBlogController)
 module.exports = router
